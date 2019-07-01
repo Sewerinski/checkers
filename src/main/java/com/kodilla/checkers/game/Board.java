@@ -34,6 +34,9 @@ public class Board {
     }
 
     public void initBoard() {
+        for (int col = 0; col<8; col++)
+            for (int row = 0; row<8; row++)
+                setFigure(col, row, new None());
         setFigure(0,0, new Pawn(FigureColor.BLACK));
         setFigure(1,1, new Pawn(FigureColor.BLACK));
         setFigure(2,0, new Pawn(FigureColor.BLACK));
@@ -113,6 +116,10 @@ public class Board {
             alert.setContentText("Play again and try to win one more time :)");
             alert.showAndWait();
         }
+        if (blackCnt == 0 || whiteCnt == 0) {
+            initBoard();
+            showBoard();
+        }
     }
 
     private FigureColor oppositeColor(FigureColor whoseMove) {
@@ -181,6 +188,7 @@ public class Board {
             result = false;
         }
         result = result && Math.abs(col2 - col1) == 1;
+        result = result && getFigure(col2, row2).getColor() == FigureColor.NONE;
         return result;
     }
 
